@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/polis-conversations",
+      "handler": "polis-conversations.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/polis-conversations/count",
+      "handler": "polis-conversations.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/polis-conversations/:id",
+      "handler": "polis-conversations.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/polis-conversations",
+      "handler": "polis-conversations.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/polis-conversations/:id",
+      "handler": "polis-conversations.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/polis-conversations/:id",
+      "handler": "polis-conversations.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/conversations",
+      "handler": "conversations.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/conversations",
+      "handler": "conversations.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/conversations",
+      "handler": "conversations.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "polis_conversations",
+  "info": {
+    "name": "Polis Conversations"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "polisId": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 12,
+      "minLength": 8,
+      "regex": "[A-Za-z0-9]+"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

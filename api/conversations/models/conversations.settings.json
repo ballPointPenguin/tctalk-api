@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "conversations",
+  "info": {
+    "name": "Conversations"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "content": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.contentblock"
+    },
+    "polis_conversations": {
+      "collection": "polis-conversations"
+    }
+  }
+}

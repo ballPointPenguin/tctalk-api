@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_content_contentblocks",
+  "info": {
+    "name": "Contentblock",
+    "icon": "align-justify"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "richtext"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "imageAltText": {
+      "type": "string"
+    }
+  }
+}
