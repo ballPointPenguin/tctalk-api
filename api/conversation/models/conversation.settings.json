@@ -2,7 +2,7 @@
   "kind": "singleType",
   "collectionName": "conversations",
   "info": {
-    "name": "Conversations"
+    "name": "Conversation"
   },
   "options": {
     "increments": true,
@@ -10,9 +10,6 @@
   },
   "attributes": {
     "title": {
-      "type": "string"
-    },
-    "subtitle": {
       "type": "string"
     },
     "content": {
