@@ -1,8 +1,8 @@
 {
   "collectionName": "components_content_contentblocks",
   "info": {
-    "name": "Contentblock",
-    "icon": "align-justify"
+    "name": "contentblock",
+    "icon": "file"
   },
   "options": {},
   "attributes": {
@@ -19,9 +19,6 @@
       ],
       "plugin": "upload",
       "required": false
-    },
-    "imageAltText": {
-      "type": "string"
     }
   }
 }

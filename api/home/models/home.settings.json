@@ -12,9 +12,6 @@
     "title": {
       "type": "string"
     },
-    "subtitle": {
-      "type": "string"
-    },
     "content": {
       "type": "component",
       "repeatable": true,
