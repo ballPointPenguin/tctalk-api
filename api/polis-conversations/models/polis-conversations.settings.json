@@ -13,9 +13,9 @@
       "type": "string",
       "required": true,
       "unique": true,
-      "maxLength": 12,
-      "minLength": 8,
-      "regex": "[A-Za-z0-9]+"
+      "regex": "[A-Za-z0-9]+",
+      "maxLength": 16,
+      "minLength": 8
     },
     "name": {
       "type": "string"
