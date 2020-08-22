@@ -1,8 +1,8 @@
 {
-  "kind": "singleType",
-  "collectionName": "abouts",
+  "kind": "collectionType",
+  "collectionName": "pages",
   "info": {
-    "name": "About"
+    "name": "Page"
   },
   "options": {
     "increments": true,
@@ -10,12 +10,17 @@
   },
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "content": {
       "type": "component",
       "repeatable": true,
       "component": "content.contentblock"
+    },
+    "polis_conversations": {
+      "collection": "polis-conversations"
     }
   }
 }
