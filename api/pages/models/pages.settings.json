@@ -21,6 +21,21 @@
     },
     "polis_conversations": {
       "collection": "polis-conversations"
+    },
+    "slug": {
+      "type": "string",
+      "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "required": true,
+      "unique": true
+    },
+    "nav_menu": {
+      "type": "boolean",
+      "default": true
+    },
+    "menu_order": {
+      "type": "integer",
+      "unique": true,
+      "min": 1
     }
   }
 }
