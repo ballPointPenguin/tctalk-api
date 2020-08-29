@@ -25,15 +25,17 @@
 
     - name: copy env file to remote folder
       copy:
-        src: prod.env
         dest: "{{ workdir }}/prod.env"
+        mode: "0600"
+        src: prod.env
 
     # MONGO DATABASE
 
     - name: copy init-mongo.js file to remote folder
       copy:
-        src: init-mongo-prod.js
         dest: "{{ workdir }}/init-mongo-prod.js"
+        mode: "0600"
+        src: init-mongo-prod.js
 
     - name: ensure mongo data volume
       docker_container:
