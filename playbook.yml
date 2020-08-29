@@ -73,8 +73,9 @@
         restart: yes
         restart_policy: always
         env:
-          NODE_ENV: "production"
+          HSTS: "off"
           LETSENCRYPT_HOST: "api.tctalk.us"
+          NODE_ENV: "production"
           VIRTUAL_HOST: "api.tctalk.us"
           VIRTUAL_PORT: "1337"
         links:
