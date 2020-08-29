@@ -1,13 +1,13 @@
 ---
 - name: strapi deploy
-  hosts: west
-  remote_user: hank
+  hosts: east
+  remote_user: luis
   vars:
     branch: prod
     homedir: "/home/{{ user }}"
     org: ballPointPenguin
     repo: tctalk-api
-    user: hank
+    user: luis
     workdir: "{{ homedir }}/code/src/github.com/{{ org }}/{{ repo }}"
 
   tasks:
