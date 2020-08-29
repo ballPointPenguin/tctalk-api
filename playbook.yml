@@ -58,7 +58,7 @@
 
     - name: build strapi docker image
       docker_image:
-        force_source: yes
+        #force_source: yes
         name: tctalk-strapi-api
         source: build
         build:
