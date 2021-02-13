@@ -1,0 +1,82 @@
+---
+- name: strapi deploy
+  hosts: east
+  remote_user: luis
+  vars:
+    branch: prod
+    homedir: "/home/{{ user }}"
+    org: ballPointPenguin
+    repo: tctalk-api
+    user: luis
+    workdir: "{{ homedir }}/code/src/github.com/{{ org }}/{{ repo }}"
+
+  tasks:
+    - name: ensure workdir parent dir is present
+      file:
+        path: "{{ homedir }}/code/src/github.com/{{ org }}"
+        state: directory
+
+    - name: clone or update repo
+      git:
+        dest: "{{ workdir }}"
+        repo: "https://github.com/{{ org }}/{{ repo }}.git"
+        update: yes
+        version: "{{ branch }}"
+
+    - name: copy env file to remote folder
+      copy:
+        dest: "{{ workdir }}/prod.env"
+        mode: "0600"
+        src: prod.env
+
+    # MONGO DATABASE
+
+    - name: copy init-mongo.js file to remote folder
+      copy:
+        dest: "{{ workdir }}/init-mongo-prod.js"
+        mode: "0600"
+        src: init-mongo-prod.js
+
+    - name: ensure mongo data volume
+      docker_container:
+        image: mongo:4.2
+        name: tctalk-db-data
+        state: stopped
+
+    - name: run mongo container
+      docker_container:
+        env_file: "{{ workdir }}/prod.env"
+        image: mongo:4.2
+        name: tctalk-db
+        restart_policy: always
+        volumes:
+          - "{{ workdir }}/init-mongo-prod.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
+        volumes_from:
+          - tctalk-db-data
+
+    # STRAPI API
+
+    - name: build strapi docker image
+      docker_image:
+        #force_source: yes
+        name: tctalk-strapi-api
+        source: build
+        build:
+          path: "{{ workdir }}"
+          pull: no
+
+    - name: run api container
+      docker_container:
+        env_file: "{{ workdir }}/prod.env"
+        image: tctalk-strapi-api
+        name: tctalk-strapi-api
+        restart: yes
+        restart_policy: always
+        env:
+          HSTS: "off"
+          LETSENCRYPT_HOST: "api.tctalk.us"
+          NODE_ENV: "production"
+          VIRTUAL_HOST: "api.tctalk.us"
+          VIRTUAL_PORT: "1337"
+        links:
+          - "tctalk-db:mongo"

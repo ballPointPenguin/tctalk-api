@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: tctalk-db
+    image: mongo
+    env_file: dev.env
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init-mongo-dev.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - tctalk-db-data:/data/db
+
+  me:
+    container_name: tctalk-me
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=tctalk
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=tctalk
+      - ME_CONFIG_MONGODB_SERVER=mongo
+    ports:
+      - "8081:8081"
+
+volumes:
+  tctalk-db-data:
