@@ -2,11 +2,13 @@
   "kind": "collectionType",
   "collectionName": "pages",
   "info": {
-    "name": "Page"
+    "name": "Page",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": true
   },
   "attributes": {
     "title": {
@@ -14,19 +16,11 @@
       "required": true,
       "unique": true
     },
-    "content": {
-      "type": "component",
-      "repeatable": true,
-      "component": "content.contentblock"
-    },
-    "polis_conversations": {
-      "collection": "polis-conversations"
-    },
     "slug": {
       "type": "string",
-      "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
       "required": true,
-      "unique": true
+      "unique": true,
+      "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
     },
     "nav_menu": {
       "type": "boolean",
@@ -34,8 +28,17 @@
     },
     "menu_order": {
       "type": "integer",
-      "unique": true,
       "min": 1
+    },
+    "content": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.content-block"
+    },
+    "polis_conversations": {
+      "collection": "polis-conversations",
+      "via": "pages",
+      "dominant": true
     }
   }
 }

@@ -6,7 +6,8 @@
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": true
   },
   "attributes": {
     "polisId": {
@@ -19,6 +20,10 @@
     },
     "name": {
       "type": "string"
+    },
+    "pages": {
+      "via": "polis_conversations",
+      "collection": "page"
     }
   }
 }

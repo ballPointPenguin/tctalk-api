@@ -1,22 +1,22 @@
 {
-  "collectionName": "components_content_contentblocks",
+  "collectionName": "components_content_content_blocks",
   "info": {
-    "name": "contentblock",
-    "icon": "file"
+    "name": "ContentBlock",
+    "icon": "stop"
   },
   "options": {},
   "attributes": {
-    "text": {
-      "type": "richtext"
-    },
     "image": {
-      "model": "file",
+      "collection": "file",
       "via": "related",
       "allowedTypes": [
         "images"
       ],
       "plugin": "upload",
       "required": false
+    },
+    "text": {
+      "type": "richtext"
     }
   }
 }
