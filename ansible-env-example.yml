@@ -1,0 +1,10 @@
+# Copy this file for the higher environments, e.g. ansible-env-stage.yml
+# Replace api_url, branch, env, etc as neccessary for that environment
+
+---
+api_url: api.tctalk.us
+branch: prod
+env: prod
+org: ballPointPenguin
+repo: tctalk-api
+user: hank

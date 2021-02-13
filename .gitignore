@@ -117,5 +117,9 @@ build
 # Deploy
 ############################
 
-prod.env
+ansible-stage.env
+ansible-prod.env
+docker-stage.env
+docker-prod.env
+init-mongo-stage.js
 init-mongo-prod.js

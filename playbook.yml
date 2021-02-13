@@ -1,13 +1,11 @@
+# Run this playbook using the deploy-stage.sh or deploy-prod.sh scripts.
+# Ensure that the docker-*.env and init-mongo-*.js files exist for the target environment.
+
 ---
 - name: strapi deploy
-  hosts: east
-  remote_user: luis
+  hosts: west
   vars:
-    branch: prod
     homedir: "/home/{{ user }}"
-    org: ballPointPenguin
-    repo: tctalk-api
-    user: luis
     workdir: "{{ homedir }}/code/src/github.com/{{ org }}/{{ repo }}"
 
   tasks:
@@ -25,41 +23,41 @@
 
     - name: copy env file to remote folder
       copy:
-        dest: "{{ workdir }}/prod.env"
+        dest: "{{ workdir }}/docker-{{ env }}.env"
         mode: "0600"
-        src: prod.env
+        src: "docker-{{ env }}.env"
 
     # MONGO DATABASE
 
     - name: copy init-mongo.js file to remote folder
       copy:
-        dest: "{{ workdir }}/init-mongo-prod.js"
+        dest: "{{ workdir }}/init-mongo-{{ env }}.js"
         mode: "0600"
-        src: init-mongo-prod.js
+        src: "init-mongo-{{ env }}.js"
 
     - name: ensure mongo data volume
       docker_container:
-        image: mongo:4.2
-        name: tctalk-db-data
+        image: mongo:4.4
+        name: "tctalk-db-data-{{ env }}"
         state: stopped
 
     - name: run mongo container
       docker_container:
-        env_file: "{{ workdir }}/prod.env"
-        image: mongo:4.2
-        name: tctalk-db
+        env_file: "{{ workdir }}/docker-{{ env }}.env"
+        image: mongo:4.4
+        name: "tctalk-db-{{ env }}"
         restart_policy: always
         volumes:
-          - "{{ workdir }}/init-mongo-prod.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
+          - "{{ workdir }}/init-mongo-{{ env }}.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
         volumes_from:
-          - tctalk-db-data
+          - "tctalk-db-data-{{ env }}"
 
     # STRAPI API
 
     - name: build strapi docker image
       docker_image:
         #force_source: yes
-        name: tctalk-strapi-api
+        name: "tctalk-strapi-api-{{ env }}"
         source: build
         build:
           path: "{{ workdir }}"
@@ -67,16 +65,16 @@
 
     - name: run api container
       docker_container:
-        env_file: "{{ workdir }}/prod.env"
-        image: tctalk-strapi-api
-        name: tctalk-strapi-api
+        env_file: "{{ workdir }}/docker-{{ env }}.env"
+        image: "tctalk-strapi-api-{{ env }}"
+        name: "tctalk-strapi-api-{{ env }}"
         restart: yes
         restart_policy: always
         env:
           HSTS: "off"
-          LETSENCRYPT_HOST: "api.tctalk.us"
+          LETSENCRYPT_HOST: "{{ api_url }}"
           NODE_ENV: "production"
-          VIRTUAL_HOST: "api.tctalk.us"
+          VIRTUAL_HOST: "{{ api_url }}"
           VIRTUAL_PORT: "1337"
         links:
-          - "tctalk-db:mongo"
+          - "tctalk-db-{{ env }}:mongo"

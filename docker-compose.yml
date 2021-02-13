@@ -4,7 +4,7 @@ services:
   mongo:
     container_name: tctalk-db
     image: mongo
-    env_file: dev.env
+    env_file: docker-dev.env
     ports:
       - "27017:27017"
     volumes:
