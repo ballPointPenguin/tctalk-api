@@ -9,7 +9,7 @@ RUN apk add --no-cache --virtual .build \
   autoconf automake build-base libpng-dev nasm python
 
 COPY package*.json /app/
-RUN npm ci
+RUN npm ci --force
 
 RUN apk del .build
 
